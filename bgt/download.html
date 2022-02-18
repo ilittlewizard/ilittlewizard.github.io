@@ -1,0 +1,26 @@
+<html>
+	<head>
+  	<link rel="stylesheet" href="style.css">
+		<script src="localization.js"></script>
+		<script src="script.js"></script>
+	</head>
+	<body onload="init()">
+		<div class="tab" align="right">
+  		<button class="tablinks" string-id="home"></button>
+  		<button class="tablinks" onclick="visit('faq.html')" string-id="faq"></button>
+  		<button class="tablinks" onclick="visit('download.html')" string-id="download"><u ></u></button>
+		</div>
+		<div class="centered faq-wrapper">
+			<div class="centered faq-start"></div>
+			<div class="centered faq" align="right">
+				<p class="faq-question" string-id="faq_q1"></p>
+				<p class="faq-answer" string-id="faq_a1"></p>
+			</div>
+			<div class="centered faq" align="right">
+				<p class="faq-question" string-id="faq_q2"></p>
+				<p class="faq-answer" string-id="faq_a2"></p>
+			</div>
+			<div class="centered faq-end"></div>
+		</div>
+	</body>
+</html>
