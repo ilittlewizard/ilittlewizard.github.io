@@ -9,7 +9,7 @@ localization.getString = function(stringId){
 	return str[localization.language];
 }
 localization.update = function(lang){
-	localization.language = lang;
+	localization.language = lang.replace("-", "_");
 	document.querySelectorAll('[string-id]').forEach(elem => {
 		elem.innerHTML = localization.getString(elem.getAttribute("string-id"), lang)
 	});
@@ -31,9 +31,9 @@ localization.strings = {
 		"zh_TW": "下載" 
 	},
 	"home_description": {
-		"en": "An app that provides convenient functions for Blockman Go",
-		"zh_CN": "一款为 Blockman Go 提供方便功能的软件",
-		"zh_TW": "一款為 Blockman Go 提供方便功能的軟件" 
+		"en": "An android app that provides convenient functions for Blockman Go",
+		"zh_CN": "一款为 Blockman Go 提供方便功能的Android 软件",
+		"zh_TW": "一款為 Blockman Go 提供方便功能的Android 軟件" 
 	},
 	"home_download_now": {
 		"en": "Download Now",
@@ -51,13 +51,30 @@ localization.strings = {
 		"zh_TW": "A: 此軟件不需要任何權限即可使用，不會（亦無法）存取您手機裡的任何資料。因此您可放心使用此軟件。"
 	},
 	"faq_q2": {
-		"en": "Q: Does this app steals your account?",
+		"en": "Q: Will this app steals your account?",
 		"zh_CN": "Q: 这软件会盗号吗?",
 		"zh_TW": "Q: 這軟件會盜號嗎?"
 	},
 	"faq_a2": {
-		"en": "A: No, it doesn't. This app will not send your password to any server (except BG game server). It will neither save your password anywhere, including your local storage. Your account is guaranteed to be safe while using this app.",
-		"zh_CN": "A: 此软件并不会将你的密码发送到任何伺服器 (BG伺服器除外)，亦不会将其储存在任何地方 (包括本地储存空间)，并不会盗取您的帐号。",
-		"zh_TW": "A: 此軟件不會將你的密碼提交到任何服務器 (BG服務器除外)，亦不會將其儲存在任何地方 (包括本地儲存空間)，並不會盜取您的帳號。。"
+		"en": "A: No, it won't. This app will not send your password to any server (except BG game server). It will neither save your password anywhere, including your local storage. Your account is guaranteed to be safe while using this app.",
+		"zh_CN": "A: 此软件不会将你的密码发送到任何服务器 (BG服务器除外)，亦不会将其储存在任何地方 (包括本地储存空间)，并不会盗取您的帐号。",
+		"zh_TW": "A: 此軟件不會將你的密碼發送到任何伺服器 (BG伺服器除外)，亦不會將其儲存在任何地方 (包括本地儲存空間)，並不會盜取您的帳號。。"
+	},
+	"download_license": {
+		"en": "License Agreement",
+		"zh_CN": "特许权协议",
+		"zh_TW": "特許權協議"
+	},
+	"download_license_content": {
+		"en": "Copyright 2022 iLittleWizard\n\n" + 
+
+		"BGT (Android Package Name: com.wizard.bgt.personal) is a Freeware, you should not have been charged to obtain this software. You are free to redistribute BGT as long as it is not modified.\n\n" +
+
+		"The author will not make any warranties, neither express nor implied. The author shall not be liable for any indirect or punitive damages, whether incurred directly or indirectly, any loss of data or other intangible losses."
+	},
+	"download_license_confirm": {
+		"en": "I have read and accepted the terms in the license agreement",
+		"zh_CN": "我已详阅及同意遵守上述特许权协议",
+		"zh_TW": "我已詳閱及同意遵守上述特許權協議"
 	}
 }

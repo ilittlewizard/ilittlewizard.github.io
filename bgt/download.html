@@ -8,19 +8,28 @@
 		<div class="tab" align="right">
   		<button class="tablinks" onclick="visit('home.html')" string-id="home"></button>
   		<button class="tablinks" onclick="visit('faq.html')" string-id="faq"></button>
-  		<button class="tablinks"><u string-id="download"></u></button>
+  		<button class="tablinks">
+				<u string-id="download"></u>
+			</button>
 		</div>
-		<div class="centered faq-wrapper">
-			<div class="centered faq-start"></div>
-			<div class="centered faq" align="right">
-				<p class="faq-question" string-id="faq_q1"></p>
-				<p class="faq-answer" string-id="faq_a1"></p>
-			</div>
-			<div class="centered faq" align="right">
-				<p class="faq-question" string-id="faq_q2"></p>
-				<p class="faq-answer" string-id="faq_a2"></p>
-			</div>
-			<div class="centered faq-end"></div>
+		<div class="centered license-box" align="right">
+			<p class="license-title" string-id="download_license"></p>
+			<p class="license-content" string-id="download_license_content"></p>
 		</div>
+		<div class="centered license-confirm-container">
+			<input class="license-confirm-checkbox" type="checkbox" name="license-confirm" onchange="update(this)">
+  		<label class="license-confirm-text" string-id="download_license_confirm"></label>
+		</div>
+  	<button id="download" class="centered locked-rounded-button" string-id="download"></button>
+		<script>
+			function update(cb){
+				download = document.getElementById("download");
+				download.classList = "centered " + 
+					(cb.checked ? "rounded-button" : "locked-rounded-button");
+				download.onclick = (!cb.checked) ? undefined : () => {
+					alert("Downloading");
+				};
+			}
+		</script>
 	</body>
 </html>

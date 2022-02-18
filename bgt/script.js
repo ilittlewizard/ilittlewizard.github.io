@@ -38,13 +38,16 @@ function init(){
   	  }
   	}
   	scan(document.body.childNodes);
-		scale = windowWidth / (pageWidth + 150);
+		scale = windowWidth / (pageWidth + 200);
 		document.body.style.transformOrigin = "left top";
 		document.body.style.transform = "scale(" + scale + ")";
 		document.body.style.width = (100 / scale) + "%";
 	}
 	query = new URLSearchParams(location.search).get("lang");
-	localization.update(query);
+	localization.update(query
+		|| window.navigator.userLanguage
+		|| window.navigator.language
+	);
 }
 
 function visit(url){
