@@ -8,12 +8,14 @@ localization.getString = function(stringId){
 		return str["en"];
 	return str[localization.language];
 }
+
 localization.update = function(lang){
 	localization.language = lang.replace("-", "_");
 	document.querySelectorAll('[string-id]').forEach(elem => {
 		elem.innerHTML = localization.getString(elem.getAttribute("string-id"), lang)
 	});
 }
+
 localization.strings = {
 	"home": {
 		"en": "Home",
