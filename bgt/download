@@ -6,8 +6,8 @@
 	</head>
 	<body onload="init()">
 		<div class="tab" align="right">
-  		<button class="tablinks" onclick="visit('home.html')" string-id="home"></button>
-  		<button class="tablinks" onclick="visit('faq.html')" string-id="faq"></button>
+  		<button class="tablinks" onclick="visit('home')" string-id="home"></button>
+  		<button class="tablinks" onclick="visit('faq')" string-id="faq"></button>
   		<button class="tablinks">
 				<u string-id="download"></u>
 			</button>
