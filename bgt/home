@@ -7,14 +7,14 @@
 	<body onload="init()">
 		<div class="tab" align="right">
   		<button class="tablinks"><u string-id="home"></u></button>
-  		<button class="tablinks" onclick="visit('faq.html')" string-id="faq"></button>
-  		<button class="tablinks" onclick="visit('download.html')" string-id="download"></button>
+  		<button class="tablinks" onclick="visit('faq')" string-id="faq"></button>
+  		<button class="tablinks" onclick="visit('download')" string-id="download"></button>
 		</div>
 		<svg class="centered" width="500" height="200">       
      <image class="centered" xlink:href="bgt.svg" width="500" height="200"/>    
 		</svg>
 		<p class="centered description" string-id="home_description"></p>
-		<button class="centered rounded-button" onclick="visit('download.html')" string-id="home_download_now"></button>
+		<button class="centered rounded-button" onclick="visit('download')" string-id="home_download_now"></button>
 
 	</body>
 </html>
