@@ -49,7 +49,8 @@ function init(){
 		document.body.style.transformOrigin = "left top";
 		document.body.style.transform = "scale(" + scale + ")";
 		document.body.style.width = (100 / scale) + "%";
-  }
+    }
+		window.scrollTo(0, 0);
 }
 
 function visit(url){
