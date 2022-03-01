@@ -25,7 +25,7 @@ localization.strings = {
 		"zh_TW": "下載" 
 	},
 	"download_link":{
-		"en": "https://raw.githubusercontent.com/ilittlewizard/bgt/main/personal/BGT_Personal-v2.0.3.apk"
+		"en": "https://raw.githubusercontent.com/ilittlewizard/bgt/main/personal/BGT_Personal-v2.0.4.apk"
 	},
 	"download_license": {
 		"en": "License Agreement",
@@ -74,5 +74,10 @@ localization.strings = {
 		"en": "-Added log collecting system\n-Added application icon",
 		"zh_CN": "-新增日志收集系统\n-增加应用图示",
 		"zh_TW": "-新增日誌收集系統\n-增加應用圖示"
-	}
+	},
+    "bgt_personal_2.0.4": {
+    	"en": "-New Feature: Transparent Icon\n-New Feature: Default Icon",
+    	"zh_CN": "-增加设置透明头像的功能\n-增加设置原始头像的功能",
+    	"zh_TW": "-增加設置透明頭像的功能\n-增加設置原始頭像的功能"
+    }
 };
