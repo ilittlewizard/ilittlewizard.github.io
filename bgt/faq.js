@@ -41,8 +41,8 @@ localization.strings = {
 		"zh_TW": "Q: 這軟件會盜號嗎?"
 	},
 	"faq_a2": {
-		"en": "A: No, it won't. This app will not send your password to any server (except BG game server). It will neither save your password anywhere, including your local storage. Your account is guaranteed to be safe while using this app.",
-		"zh_CN": "A: 此软件不会将你的密码发送到任何服务器 (BG服务器除外)，亦不会将其储存在任何地方 (包括本地储存空间)，并不会盗取您的帐号。",
-		"zh_TW": "A: 此軟件不會將你的密碼發送到任何伺服器 (BG伺服器除外)，亦不會將其儲存在任何地方 (包括本地儲存空間)，並不會盜取您的帳號。"
+		"en": "A: No, it won't. This app will not send your password to any server (except BG game server). It will neither save your password anywhere, excluding your local storage. Your account is guaranteed to be safe while using this app.",
+		"zh_CN": "A: 此软件不会将你的密码发送到任何服务器 (BG服务器除外)，亦不会将其储存在任何地方 (不包括本地储存空间)，并不会盗取您的帐号。",
+		"zh_TW": "A: 此軟件不會將你的密碼發送到任何伺服器 (BG伺服器除外)，亦不會將其儲存在任何地方 (不包括本地儲存空間)，並不會盜取您的帳號。"
 	}
 };
