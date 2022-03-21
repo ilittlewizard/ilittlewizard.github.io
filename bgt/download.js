@@ -25,7 +25,7 @@ localization.strings = {
 		"zh_TW": "下載" 
 	},
 	"download_link":{
-		"en": "https://raw.githubusercontent.com/ilittlewizard/bgt/main/personal/BGT_Personal-v2.0.5.apk"
+		"en": "https://raw.githubusercontent.com/ilittlewizard/bgt/main/personal/BGT_Personal-v2.0.6.apk"
 	},
 	"download_license": {
 		"en": "License Agreement",
@@ -84,5 +84,10 @@ localization.strings = {
     	"en": "-New Feature: Get Lucky Draw Reward\n-New Feature: Password Autofill\n-Improved Dark Mode Compatibility\n-Improved Log Message",
        	"zh_CN": "-新增领取游戏轮盘奖励的功能\n-新增自动填入密码的功能\n-改善与夜间模式的兼容性\n-改善日志讯息",
        	"zh_TW": "-新增領取遊戲輪盤獎勵的功能\n-新增自動填入密碼的功能\n-改善與夜間模式的兼容性\n-改善日誌訊息"
+    },
+    "bgt_personal_2.0.6": {
+        "en": "-New Feature: Change Color Name\n-Fixed bugs due to regional restrictions",
+        "zh_CN": "-新增更改颜色名字的功能\n-修复部分地区无法登入的问题",
+        "zh_TW": "-新增更改顏色名字的功能\n-修復部分地區無法登入的問題"
     }
 };
