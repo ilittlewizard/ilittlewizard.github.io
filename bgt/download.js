@@ -25,7 +25,7 @@ localization.strings = {
 		"zh_TW": "下載" 
 	},
 	"download_link":{
-		"en": "https://raw.githubusercontent.com/ilittlewizard/bgt/main/personal/BGT_Personal-v2.0.6.apk"
+		"en": "https://raw.githubusercontent.com/ilittlewizard/bgt/main/personal/BGT_Personal-v2.0.7.apk"
 	},
 	"download_license": {
 		"en": "License Agreement",
@@ -89,5 +89,10 @@ localization.strings = {
         "en": "-New Feature: Change Color Name\n-Fixed bugs due to regional restrictions",
         "zh_CN": "-新增更改颜色名字的功能\n-修复部分地区无法登入的问题",
         "zh_TW": "-新增更改顏色名字的功能\n-修復部分地區無法登入的問題"
+    },
+    "bgt_personal_2.0.7": {
+        "en": "-Fixed bugs due to regional restrictions",
+        "zh_CN": "-修复部分地区无法登入的问题",
+        "zh_TW": "-修復部分地區無法登入的問題"
     }
 };
