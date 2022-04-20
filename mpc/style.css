@@ -1,0 +1,39 @@
+.centered {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.rounded-button {
+	background-color: green;
+	border: none;
+	border-radius: 40px;
+	color: white;
+	font-weight: bold;
+	font-size: 18px;
+	padding: 15px;
+	text-align: center;
+	transition: 0.3s;
+}
+
+.rounded-button:hover {
+	background-color: #006000;
+	font-size: 19px
+}
+
+html {
+	background-color: #2333be
+}
+
+.text {
+	width: max-content;
+	font-family: sans-serif;
+	font-size: 22px;
+	color: white;
+}
+
+.embedded-gform{
+    background: #FFC0CB;
+    border-radius: 20px;
+    border: 10px solid black;
+}
