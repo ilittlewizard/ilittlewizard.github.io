@@ -36,3 +36,11 @@ function init(){
     }
     window.scrollTo(0, 0);
 }
+
+function sendKey(elem, charCode) {
+  var evt = document.createEvent("KeyboardEvent");
+  evt.initKeyboardEvent("keypress", true, true, window,
+                    0, 0, 0, 0,
+                    0, charCode)
+  elem.dispatchEvent(evt);
+}
