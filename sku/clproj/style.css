@@ -1,0 +1,65 @@
+/* Common CSS used in introductions    */
+/*     - intro.html                    */
+/*     - ict.html                      */
+/*     - sleep.html                    */
+/*     - code.html                     */
+
+html {
+    background: #181818;
+    padding: 10px;
+}
+
+.rounded-button {
+   	background-color: green;
+	border: none;
+	border-radius: 40px;
+	color: white;
+	font-weight: bold;
+	font-size: 18px;
+	padding: 15px;
+	text-align: center;
+	transition: 0.3s;
+}
+
+.rounded-button:hover {
+	background-color: #006000;
+	font-size: 19px
+}
+
+.article-title {
+	font-family: sans-serif;
+	color: #08fdd8;
+	font-size: 25;
+}
+
+.article-divider {
+	height: max-content;
+	width: inherit;
+	border-top: 2px solid #08fdd8;
+	margin-bottom: 10px;
+}
+
+.article-text {
+	font-family: sans-serif;
+	color: white;
+	font-size: 17;
+}
+
+.article-row-based-table, th {
+    width: 50%
+}
+
+.article-row-based-table, td {
+    border-bottom: 2px solid white;
+    border-collapse: collapse;
+	font-family: sans-serif;
+	color: white;
+	font-size: 16;
+	padding-top: 8px;
+	padding-bottom: 8px;
+}
+
+.article-row-based-table b {
+	color: #08fdd8;
+	font-size: 17;
+}
