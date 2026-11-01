@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>History Topic 5 — Flashcards</title>
+<style>
+  :root{
+    --bg:#0f1220; --panel:#1a1e31; --card:#232842; --cardback:#2c3154;
+    --text:#e8eaf6; --muted:#9aa0c3; --accent:#6c7bff; --accent2:#4ade80;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);
+    color:var(--text);min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:24px 16px}
+  h1{font-size:1.4rem;font-weight:700;margin-bottom:2px}
+  .sub{color:var(--muted);font-size:.85rem;margin-bottom:20px}
+  .controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:center;margin-bottom:18px}
+  select,button{background:var(--panel);color:var(--text);border:1px solid #323a5e;border-radius:8px;
+    padding:8px 14px;font-size:.9rem;cursor:pointer}
+  button:hover{background:#262c4c}
+  button.primary{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
+  .counter{color:var(--muted);font-size:.85rem}
+  .stage{width:100%;max-width:620px;perspective:1200px;margin-bottom:18px}
+  .card{position:relative;width:100%;height:340px;cursor:pointer;transform-style:preserve-3d;
+    transition:transform .5s cubic-bezier(.2,.7,.3,1)}
+  .card.flipped{transform:rotateY(180deg)}
+  .face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;
+    border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    padding:28px;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+  .front{background:var(--card)}
+  .back{background:var(--cardback);transform:rotateY(180deg)}
+  .cat{position:absolute;top:14px;left:14px;font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;
+    color:var(--accent2);background:rgba(74,222,128,.12);padding:4px 10px;border-radius:20px;font-weight:600}
+  .q{font-size:1.25rem;font-weight:600;line-height:1.45}
+  .a{font-size:1.05rem;line-height:1.5;color:#dfe3ff}
+  .hint{position:absolute;bottom:14px;color:var(--muted);font-size:.72rem}
+  .nav{display:flex;gap:10px;align-items:center}
+  @media(max-width:480px){.card{height:300px}.q{font-size:1.1rem}.a{font-size:.95rem}}
+</style>
+</head>
+<body>
+  <h1>History Topic 5 — The Rise of Modern Europe</h1>
+  <div class="sub">Renaissance · Reformation · Scientific Revolution — pp. 5–30</div>
+
+  <div class="controls">
+    <select id="catFilter" onchange="applyFilter()">
+      <option value="all">All categories</option>
+    </select>
+    <button id="shuffle" class="primary" onclick="shuffle()">Shuffle</button>
+  </div>
+
+  <div class="stage">
+    <div class="card" id="card" onclick="flip()">
+      <div class="face front">
+        <span class="cat" id="catFront"></span>
+        <div class="q" id="q"></div>
+        <span class="hint">Click / Space to flip</span>
+      </div>
+      <div class="face back">
+        <span class="cat" id="catBack"></span>
+        <div class="a" id="a"></div>
+        <span class="hint">← → to move</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav">
+    <button onclick="move(-1)">← Prev</button>
+    <span class="counter" id="counter"></span>
+    <button onclick="move(1)">Next →</button>
+  </div>
+
+<script>
+const DECK = [
+// ————— RENAISSANCE —————
+{cat:"Renaissance", q:"What does the word “Renaissance” mean?", a:"“Rebirth” or “revival” — the renewed interest of Europeans in the classical culture of ancient Greece and Rome."},
+{cat:"Renaissance", q:"Where and when did the Renaissance begin?", a:"In Italy, in the 14th century. It later spread to other European countries."},
+{cat:"Renaissance", q:"What are the 3 background causes of the Renaissance?", a:"1) Collapse of feudal society (serfs freed from lords, moved to cities). 2) Rise of merchants (post-Crusades trade; Medici etc. sponsored art). 3) Classical civilisation regained importance (Islamic scholarship, scholars fleeing the fallen E. Roman Empire, universities, movable-type printing)."},
+{cat:"Renaissance", q:"How did the collapse of feudal society help the Renaissance?", a:"Serfs moved from manors to cities, were no longer tied to lords, and could choose their own work (e.g. art) — a liberal atmosphere favourable to new ideas and culture."},
+{cat:"Renaissance", q:"How did the rise of merchants help the Renaissance?", a:"After the Crusades (1096–1270), Italian city-states (Florence, Venice) controlled Mediterranean trade and grew rich; rich merchants like the Medici sponsored literary/artistic creations."},
+{cat:"Renaissance", q:"How did classical civilisation regain importance?", a:"Via Crusades/trade Europeans met Islamic scholars' classical findings; scholars fled to Italy after the fall of the Eastern Roman Empire (1453); universities; movable-type printing spread knowledge."},
+{cat:"Renaissance", q:"Why was Italy the birthplace of the Renaissance? (Geography)", a:"Italian cities were near the Mediterranean, making it easy to reach the East — so they obtained ancient texts from Islamic countries and the E. Roman Empire."},
+{cat:"Renaissance", q:"Why was Italy the birthplace of the Renaissance? (Politics)", a:"Italian cities were mostly city-states where citizens enjoyed greater freedoms — a liberal atmosphere favourable to new ideas."},
+{cat:"Renaissance", q:"Why was Italy the birthplace of the Renaissance? (Economy)", a:"They were trading centres that grew rich by sea trade — rich merchants were willing to sponsor literary/artistic creations."},
+{cat:"Renaissance", q:"Why was Italy the birthplace of the Renaissance? (Culture)", a:"Italy was the birthplace of ancient Roman civilisation with many remains — Italians saw themselves as Rome's successors and were keen to study it."},
+{cat:"Renaissance", q:"Who was Petrarch and what did he do?", a:"The “father of humanism” (1304–1374). He spent four years travelling to collect ancient manuscripts."},
+{cat:"Renaissance", q:"What was the Neo-Platonic Academy?", a:"A school founded by the Medici family (following the ancient Greek philosopher Plato) to study classical civilisation."},
+{cat:"Renaissance", q:"Who were the Medici family and their most famous patron?", a:"A powerful Florentine family (banking fortune; rulers of Florence, 4 popes, 2 queens of France). Lorenzo de' Medici (1449–1492) was their most famous patron of the arts. The Uffizi Gallery preserves their collection."},
+{cat:"Renaissance", q:"What are the 3 characteristics of the Renaissance?", a:"1) Revival of classical civilisation. 2) Emphasis on humanism. 3) Individualism and scepticism."},
+{cat:"Renaissance", q:"What is humanism?", a:"From Latin “humanitas”. A human-centred outlook valuing human dignity, talent and this life — breaking away from medieval God-centred thinking."},
+{cat:"Renaissance", q:"Name the 4 famous Renaissance writers and one work each.", a:"Dante — Divine Comedy; Boccaccio — Decameron; Cervantes — Don Quixote; Shakespeare — Romeo and Juliet."},
+{cat:"Renaissance", q:"What did each Renaissance writer's famous work do?", a:"Divine Comedy criticised the medieval Church; Decameron revealed corrupt aristocrats/monks (Black Death era); Don Quixote satirised the aristocracy & Church; Shakespeare's plays portrayed human nature in depth."},
+{cat:"Renaissance", q:"Compare Renaissance vs medieval painting (theme).", a:"Renaissance: religion + people's lives + landscapes. Medieval: mainly religion."},
+{cat:"Renaissance", q:"Compare Renaissance vs medieval painting (technique).", a:"Renaissance: realistic, rich colours, perspective (“far small, near big”), clear light/shade, 3-D effect. Medieval: flat, out-of-proportion, monotonous colours, blank expressions, stiff movements."},
+{cat:"Renaissance", q:"Who were the “Three Masters of the Renaissance”?", a:"Leonardo da Vinci (1452–1519), Michelangelo (1475–1564) and Raphael (1483–1520)."},
+{cat:"Renaissance", q:"What are Leonardo da Vinci's famous works/techniques?", a:"Mona Lisa, The Last Supper, Vitruvian Man; used perspective and “sfumato” (soft hazy silhouette). A painter, sculptor, scientist, architect, philosopher."},
+{cat:"Renaissance", q:"What was Michelangelo known for?", a:"Sculptor, painter, architect; portrayed athletic, lively figures. Famous works: Pietà (Mary holding Jesus) and David (David vs Goliath). Painted the Sistine Chapel ceiling."},
+{cat:"Renaissance", q:"What was Raphael known for?", a:"Expert painter of Madonnas (Virgin Mary); beauty of figures and harmony of images. The School of Athens (Plato, Aristotle, Euclid). Died at 37."},
+{cat:"Renaissance", q:"What is a “Renaissance man”?", a:"A person skilled in a wide range of fields."},
+{cat:"Renaissance", q:"How did Michelangelo show he was multi-talented, innovative and inquisitive?", a:"Multi-talented: good at sculpture, painting, biology. Innovative: created the Virgin Mary as a young lady. Inquisitive: dissected corpses to study the human body."},
+{cat:"Renaissance", q:"Contrast Gothic vs Renaissance architecture.", a:"Gothic: pointed arches, long narrow windows, soaring spires (e.g. Cologne Cathedral, 1248). Renaissance: columns, arches, domes, proportion/balance/symmetry (e.g. St Peter's Basilica, 1506)."},
+{cat:"Renaissance", q:"What are the 4 impacts of the Renaissance?", a:"1) Led to the Reformation. 2) Promoted the opening of new sea routes. 3) Gave rise to the Scientific Revolution. 4) Triggered the Enlightenment."},
+
+// ————— REFORMATION —————
+{cat:"Reformation", q:"What was the Reformation?", a:"A 16th-century movement to reform the Roman Catholic Church; it inherited the Renaissance's scepticism and changed European minds."},
+{cat:"Reformation", q:"What were the causes of the Reformation?", a:"1) Dissatisfaction with the Church's malpractices (corruption, selling priesthood & indulgences). 2) Martin Luther's criticism — his Ninety-Five Theses (1517)."},
+{cat:"Reformation", q:"What were indulgences and why were they sold?", a:"Certificates the Church sold (to fund St Peter's Basilica), claiming buyers' sins would be forgiven and they would go to heaven."},
+{cat:"Reformation", q:"Who was Martin Luther and what did he do in 1517?", a:"A German priest. In 1517 he posted the Ninety-Five Theses on the church gate at Wittenberg, openly criticising the Church — this began the Reformation."},
+{cat:"Reformation", q:"How did movable-type printing help the Reformation?", a:"Gutenberg's press (1450) made copying cheap and fast; it spread the Ninety-Five Theses rapidly across Europe."},
+{cat:"Reformation", q:"What did Luther do in 1520?", a:"Refused to recant, burnt the Church's documents and broke with the Roman Catholic Church."},
+{cat:"Reformation", q:"What was Luther's core belief vs the Church's?", a:"Luther: “The Bible is the only authority; believing in the Bible is enough.” Church: “The Church's authority is God-given and cannot be questioned.”"},
+{cat:"Reformation", q:"What did Luther do in hiding?", a:"Translated the Bible into German so people could read it without the Church's help."},
+{cat:"Reformation", q:"Name the Protestant sects and their founders.", a:"Lutheranism (Martin Luther); Anglican Church (Henry VIII, 1534); Calvinism (John Calvin, Switzerland)."},
+{cat:"Reformation", q:"What is Lutheranism's key teaching?", a:"Reliance on the Bible; salvation is achieved only by believing in God's grace."},
+{cat:"Reformation", q:"Why did Henry VIII found the Anglican Church?", a:"The Pope opposed his remarriage, so Henry VIII broke with the Church in 1534, made the Anglican Church England's state religion and himself its supreme leader."},
+{cat:"Reformation", q:"What was Calvinism's character?", a:"Founded by Calvin in Switzerland; advocated a frugal life with very strict rules."},
+{cat:"Reformation", q:"How did the Catholic Church reform itself?", a:"Clarified doctrine; banned the sale of indulgences/priesthood; set up schools for priests; created the Jesuits (1534); used the Roman Inquisition and banned Protestant books."},
+{cat:"Reformation", q:"What were the 3 impacts of the Reformation?", a:"1) Weakened the Roman Catholic Church. 2) Led to religious wars. 3) Promoted the development of ideas/education."},
+{cat:"Reformation", q:"What was the biggest religious war and how did it end?", a:"The Thirty Years' War (1618–1648), ended by the Peace of Westphalia (1648), which let each state choose its religion."},
+{cat:"Reformation", q:"Draw the Christian family tree.", a:"Christianity → (1054 Great Schism) → Eastern Orthodox / Roman Catholic → (Reformation) → Lutheranism + Anglican Church + Calvinism = Protestantism."},
+
+// ————— SINO-WESTERN EXCHANGE —————
+{cat:"Sino-Western", q:"Who were the Jesuits and when were they founded?", a:"The Society of Jesus, a Catholic order founded in 1534 (approved 1540). Priests travelled the world preaching and brought Western science to China."},
+{cat:"Sino-Western", q:"What did Matteo Ricci (利瑪竇) contribute in China?", a:"Late Ming. Translated Euclid's Elements with Xu Guangqi; drew the world map Kunyu Wanguo Quantu."},
+{cat:"Sino-Western", q:"What did Adam Schall (湯若望) and Ferdinand Verbiest (南懷仁) do?", a:"Both served as Qin Tianjian and introduced Western astronomy. Schall also introduced the telescope; Verbiest introduced artillery technology and helped make firearms."},
+{cat:"Sino-Western", q:"Why were missionaries later banned in China?", a:"The Pope forbade Chinese believers' ancestor-worship rites (seen as idolatry); the Qing court then forbade the spread of Christianity."},
+
+// ————— SCIENTIFIC REVOLUTION —————
+{cat:"Scientific Revolution", q:"What does “revolution” mean?", a:"Major changes in the way of human life — fundamental changes in politics, culture, science and technology."},
+{cat:"Scientific Revolution", q:"What was the Scientific Revolution (when)?", a:"16th–17th centuries. Scientists proposed new theories and overthrew old ideas."},
+{cat:"Scientific Revolution", q:"What were the 3 background causes of the Scientific Revolution?", a:"1) Renaissance emphasised reason. 2) Reformation questioned Church authority. 3) New sea routes challenged old world views."},
+{cat:"Scientific Revolution", q:"What are the 2 characteristics of the Scientific Revolution?", a:"1) Searching for the laws of nature. 2) Emphasis on observations and experiments."},
+{cat:"Scientific Revolution", q:"What was Descartes' theory of Mechanism?", a:"Everything works like a machine according to established laws of nature, discoverable by rational thought."},
+{cat:"Scientific Revolution", q:"What was Francis Bacon's contribution?", a:"Believed humans understand the world through “empirical evidence” — laid the foundation for the scientific method."},
+{cat:"Scientific Revolution", q:"Name 2 new instruments and their inventors.", a:"Barometer — Torricelli (1643, air pressure). Microscope — Antonie van Leeuwenhoek (1670s, discovered microorganisms)."},
+{cat:"Scientific Revolution", q:"What are the steps of the scientific method?", a:"Observe → make a hypothesis → carry out experiments → analyse results → draw a conclusion."},
+{cat:"Scientific Revolution", q:"What is geocentrism vs heliocentrism?", a:"Geocentrism: Earth is the centre of the universe (Church's view). Heliocentrism: the Sun is the centre of the planets."},
+{cat:"Scientific Revolution", q:"Name the key astronomers in the development of heliocentrism.", a:"Aristarchus (ancient Greece, first to propose) → Copernicus (1543, On the Revolutions of the Heavenly Spheres) → Kepler (laws of planetary motion) → Galileo (improved telescope; Venus phases)."},
+{cat:"Scientific Revolution", q:"Who were the key figures in Medicine?", a:"Vesalius (1543, first anatomy textbook) and William Harvey (blood circulation)."},
+{cat:"Scientific Revolution", q:"What were Isaac Newton's major achievements?", a:"Laws of motion and the law of universal gravitation (Principia, 1687); discovered white light = colours; invented calculus."},
+{cat:"Scientific Revolution", q:"What scientific research groups emerged in the 17th century?", a:"The Royal Society (Britain) and the French Academy of Sciences — published journals to spread discoveries. Members included Newton, Einstein, Hawking."},
+{cat:"Scientific Revolution", q:"What were the 2 impacts of the Scientific Revolution?", a:"1) Changed Europeans' worldview (nature explained by science, not God). 2) Promoted scientific & technological innovation → Industrial Revolution."},
+
+// ————— VOCABULARY —————
+{cat:"Vocabulary", q:"Define: scepticism", a:"A questioning attitude; daring to challenge old ideas and try new things."},
+{cat:"Vocabulary", q:"Define: individualism", a:"The belief that one should stay true to oneself and freely express one's opinions and feelings."},
+{cat:"Vocabulary", q:"Define: secularism", a:"The principle of separating religion from worldly/public affairs; a 19th-century embodiment of humanism."},
+{cat:"Vocabulary", q:"Define: excommunicate", a:"To officially expel someone from the Church."},
+{cat:"Vocabulary", q:"Define: salvation", a:"Being saved from sin (entering heaven); Protestants taught it comes only by God's grace."},
+{cat:"Vocabulary", q:"Define: doctrine", a:"The official teachings/beliefs of a religion."},
+{cat:"Vocabulary", q:"Define: malpractice", a:"Improper or corrupt behaviour (e.g. the clergy's selling of indulgences)."},
+{cat:"Vocabulary", q:"Define: perspective", a:"A painting technique (“far small, near big”) creating depth and a sense of space."},
+{cat:"Vocabulary", q:"Define: anatomy / dissection", a:"Anatomy = the study of the body's structure; dissection = cutting open a body/corpse to study it."},
+{cat:"Vocabulary", q:"Define: heliocentrism / geocentrism", a:"Heliocentrism = Sun-centred universe; geocentrism = Earth-centred universe (the old, Church-held view)."},
+{cat:"Vocabulary", q:"Define: patron / literati", a:"Patron = a person who financially supports artists/scholars. Literati = learned/literary people (writers)."},
+];
+
+const cats = [...new Set(DECK.map(c=>c.cat))];
+const sel = document.getElementById('catFilter');
+cats.forEach(c=>{const o=document.createElement('option');o.value=c;o.textContent=c;sel.appendChild(o)});
+
+let filtered = [...DECK];
+let idx = 0;
+let flipped = false;
+
+function applyFilter(){
+  const v = sel.value;
+  filtered = v==='all' ? [...DECK] : DECK.filter(c=>c.cat===v);
+  idx = 0; flipped = false;
+  render();
+}
+function shuffle(){
+  for(let i=filtered.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[filtered[i],filtered[j]]=[filtered[j],filtered[i]];}
+  idx = 0; flipped = false; render();
+}
+function flip(){
+  if(!filtered.length) return;
+  flipped = !flipped;
+  document.getElementById('card').classList.toggle('flipped', flipped);
+}
+function move(d){
+  if(!filtered.length) return;
+  idx = (idx + d + filtered.length) % filtered.length;
+  flipped = false;
+  document.getElementById('card').classList.remove('flipped');
+  render();
+}
+function render(){
+  const c = filtered[idx];
+  document.getElementById('catFront').textContent = c.cat;
+  document.getElementById('catBack').textContent = c.cat;
+  document.getElementById('q').textContent = c.q;
+  document.getElementById('a').textContent = c.a;
+  document.getElementById('counter').textContent = `Card ${idx+1} / ${filtered.length}`;
+}
+document.addEventListener('keydown', e=>{
+  if(e.key===' '||e.key==='Enter'){e.preventDefault();flip();}
+  else if(e.key==='ArrowRight'){move(1);}
+  else if(e.key==='ArrowLeft'){move(-1);}
+});
+render();
+</script>
+</body>
+</html>
